@@ -92,10 +92,10 @@ export default class Geolocator extends React.Component {
     // Update the chart
     if (this.state.chartData.length > 10) {
       let shiftAndRest = this.state.chartData.slice(1);
-      this.setState({ chartData: [...shiftAndRest, {label: "altitude", data: this.state.coords.lat}]});
+      this.setState({ chartData: [...shiftAndRest, {label: "altitude", data: this.state.altitude}]});
     } else {
       this.setState((prevState, _) => {
-        chartData: prevState.chartData.push({ label: "altitude", data: this.state.coords.lat })
+        chartData: prevState.chartData.push({ label: "altitude", data: this.state.altitude })
       });
 
       console.log("ChartData", this.state.chartData);
@@ -113,7 +113,7 @@ export default class Geolocator extends React.Component {
           {Math.floor(this.state.startedSince / 1000 / 60)} :
           {Math.floor(this.state.startedSince / 1000 % 60)}
           </p>
-          <p> Pos: {this.state.coords.lat} | {this.state.coords.lng} </p>
+          <p> Pos: {this.state.coords.current.lat} | {this.state.coords.current.lng} </p>
           <p> Speed: {this.state.speed ? this.state.speed : 0}</p>
           <p> Altitude: {this.state.altitude ? this.state.altitude : 0}</p>
           <p> Acceleration: {this.state.acceleration.x} m/s2 | {this.state.acceleration.y} m/s2 </p>
