@@ -12,32 +12,45 @@ export default class App extends React.Component {
         y: 0,
         z: 0,
       },
-      accelerationFlow: []
+      speed: {
+        vx: 0,
+        vy: 0,
+        vz: 0
+      },
     }
   }
 
   componentDidMount() {
-    try {
-      window.addEventListener('devicemotion', (e) => {
-        // in m/s2 or meters per second, per second
-        this.accelerationSlice = this.state.accelerationFlow.slice(1, 9);
-        this.accelerationSlice.push({
-          label: "",
-          data: e.acceleration.x,
-        });
+    window.addEventListener('devicemotion', (e) => {
+      // in m/s2 or meters per second, per second
+      this.setState((prevState, props) => ({
+        speed: { 
+          vx: prevState.speed.vx + e.acceleration.x * (e.acceleration.x - this.state.acceleration.x),
+          vy: prevState.speed.vy + e.acceleration.y * (e.acceleration.y - this.state.acceleration.y), 
+          vz: prevState.speed.vz + e.acceleration.z * (e.acceleration.z - this.state.acceleration.z)
+        }
+      }));
 
-        this.setState({ accelerationFlow: this.accelerationSlice });
+      console.log(this.state.speed);
+
+      this.setState({
+       acceleration: {
+          x: e.acceleration.x,
+          y: e.acceleration.y,
+          z: e.acceleration.z
+        }
       })
-    } catch(e) {
-      console.warn("Metrics.js: devicemotion is not available on this device");
-    }
+    })
   }
 
   render() {
     return (
       <div>
         <Chronometer />
-        <GeoChart type="bar" width="80%" height="80%" data={this.state.accelerationFlow}/>
+        <p> {Math.floor(Math.sqrt(Math.pow(this.state.speed.vx, 2)
+                        + Math.pow(this.state.speed.vy, 2)
+                        + Math.pow(this.state.speed.vz, 2)))} 
+        </p>
       </div>
     )
   }
