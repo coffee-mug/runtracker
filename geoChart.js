@@ -58,6 +58,11 @@ export default class GeoChart extends React.Component {
           display: flex;
           align-items: center;
           justify-content: center;
+          height: 60vh;
+          }
+          canvas {
+            height: 80%;
+
           }
        `}</style>
       </div>

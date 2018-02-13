@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import Geolocator from '../geolocator.js';
+import App from '../App.js';
 
 export default () => { 
   return (
@@ -10,14 +10,13 @@ export default () => {
       <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
       <link href="https://fonts.googleapis.com/css?family=Questrial|Roboto" rel="stylesheet" />
     </Head>
-    <Geolocator />
+    <App />
     <style jsx global>{`
-      h1, h2, h3, h4, h5 {
-        font-family: 'Questrial', sans-serif;
-      }
-
       body {
-        font-family: 'Roboto', sans-serif;
+        background: #34A7E8;
+        color: #FAFBFB;
+        font-family: 'Questrial', sans-serif;
+        max-height: 100%;
       }
     `}</style>
   </div>
